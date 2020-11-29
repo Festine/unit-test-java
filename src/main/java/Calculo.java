@@ -1,11 +1,18 @@
 import java.util.Scanner;
 public class Calculo {
+    public static int escolha;
+    public static double resultado;
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Bem vindo ao calculador,\n" + "Selecione a opção desejada:\n" +  "1 - calcular IMC \n" +  "2 - Calcular peso ideal.\n");
-        int escolha;
+
         escolha = scanner.nextInt();
+
+        if(escolha != 1 && escolha != 2) {
+            System.out.println("Essa opção não está disponível\n");
+            System.out.println(escolha);
+        }
 
         if (escolha == 1) {
             System.out.println("Informe seu peso: ");
@@ -19,24 +26,29 @@ public class Calculo {
 
         }
         else if(escolha == 2){
-
-            System.out.println("Informe sua altura:");
             double h;
+            System.out.println("Informe sua altura:");
             h = scanner.nextDouble();
+
             char s;
             System.out.print("Digite H ou M para especificar o sexo: ");
             s = scanner.next().charAt(0);
+
+
+            if (s != 'h' || s != 'm') {
+                    System.out.println("Sexo indefinido");
+            }
 
             Calculo.calculapesoideal(s,h);
 
         }
 
-
     }
+
     public static Double calculaimc(double kg, double h) {
 
 
-        double resultado = kg / (h * h);
+        resultado = kg / (h * h);
 
         if (resultado < 18.5) {
             System.out.println( "Seu IMC é: " + resultado);
@@ -54,11 +66,11 @@ public class Calculo {
             System.out.println( "Seu IMC é: " + resultado);
             System.out.println("Você está obeso");
             return resultado;}
-          else {
+        else {
             return 0.00;
 
+        }
 
-    }
     }
 
     public static Double calculapesoideal(char s, double h) {
@@ -77,9 +89,13 @@ public class Calculo {
             return 0.00;
         }
 
-
     }
 
+    public static double getResultado() {
+        return resultado;
+    }
 
+    public static int getEscolha() {
+        return escolha;
+    }
 }
-
