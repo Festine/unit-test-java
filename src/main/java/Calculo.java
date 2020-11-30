@@ -102,8 +102,4 @@ public class Calculo {
 
     }
 
-    public static double getResultado() {
-        return resultado;
-    }
-
 }
