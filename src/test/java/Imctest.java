@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -10,32 +11,20 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 public class Imctest {
 
+    Calculo calculo;
+
     private double peso;
     private double altura;
 
     @Before
     public void prepareTests(){
+        this.calculo = new Calculo();
         peso = 100.0;
         altura = 2.1;
     }
 
     @Test
-    public void testeimcmenor24() {
-        //arrange
-        Calculo calculo = new Calculo();
-        double atual = 0;
-        double esperado = 22.6;
-
-        //act
-        atual = Calculo.calculaimc(100.0, 2.1);
-
-        //assert
-        Assert.assertEquals(esperado, atual, 0.1);
-
-    }
-
-    @Test
-    public void testeimcmenor18() {
+    public void testeimcMenor18() throws Exception {
         //arrange
         Calculo calculo = new Calculo();
         double atual = 0;
@@ -50,7 +39,22 @@ public class Imctest {
     }
 
     @Test
-    public void testeimcmenor30() {
+    public void testeimcMenor24() throws Exception {
+        //arrange
+        Calculo calculo = new Calculo();
+        double atual = 0;
+        double esperado = 22.6;
+
+        //act
+        atual = Calculo.calculaimc(100.0, 2.1);
+
+        //assert
+        Assert.assertEquals(esperado, atual, 0.1);
+
+    }
+
+    @Test
+    public void testeimcMenor30() throws Exception {
         //arrange
         Calculo calculo = new Calculo();
         double atual = 0;
@@ -65,7 +69,7 @@ public class Imctest {
     }
 
     @Test
-    public void testeimcmaior30() {
+    public void testeimcMaior30() throws Exception {
         //arrange
         Calculo calculo = new Calculo();
         double atual = 0;
@@ -78,6 +82,23 @@ public class Imctest {
         Assert.assertEquals(esperado, atual, 0.1);
 
     }
+    @Test(expected = Exception.class)
+    public void testeAlturaNegativa() throws Exception {
+        //arrange
+        Calculo calculo = new Calculo();
+        //act
+        this.calculo.calculaimc(100, -1.70);
+    }
+
+    @Test(expected = Exception.class)
+    public void testePesoNegativo() throws Exception {
+        //arrange
+        Calculo calculo = new Calculo();
+
+        //act
+        this.calculo.calculaimc(-100, 1.70);
+    }
+
 
     @Test
     public void testecalculopesoidealh() {
@@ -109,38 +130,25 @@ public class Imctest {
 
     }
 
-    @Test
-    public void testeescolharealizada() {
+    @Test(expected = Exception.class)
+    public void testeSexoDif() throws Exception {
         //arrange
         Calculo calculo = new Calculo();
-        int atual;
-        int esperado = 0;
-
         //act
-        atual = Calculo.getEscolha();
+        this.calculo.validaSexo('g');
+    }
 
-        //assert
-        Assert.assertEquals(esperado, atual);
-
+    @Test(expected = Exception.class)
+    public void testeOpcao() throws Exception {
+        //arrange
+        Calculo calculo = new Calculo();
+        //act
+        this.calculo.validaOpcao('3');
     }
 
     @Test
-    public void testimcmenor24mock() throws Exception {
-
-        //arrange
-        Calculo calculo =  new Calculo();
-
-        double atual = 0;
-        double esperado = 22.6;
-
-        //act
-        Calculo.calculaimc(peso, altura);
-
-        atual = Calculo.getResultado();
-
-        //assert
-        Assert.assertEquals(atual, esperado, 0.1);
-
+    public void testimcMenor24() throws Exception {
+        Calculo classRegister =  Mockito.mock(Calculo.class);
+        Mockito.verify(classRegister, Mockito.times(1)).calculaimc(peso,altura);
     }
-
 }
