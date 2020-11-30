@@ -95,8 +95,4 @@ public class Calculo {
             return PesoIdeal;
         }
     }
-
-    public static double getResultado() {
-        return resultado;
-    }
 }
