@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
+import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -119,19 +119,9 @@ public class Imctest {
     }
 
     @Test
-    public void testimcmenor24mock() throws Exception {
-        new Calculo();
-        double atual = 0.0D;
-        double esperado = 22.6D;
-        Calculo.calculaimc(this.peso, this.altura);
-        atual = Calculo.getResultado();
-        Assert.assertEquals(atual, esperado, 0.1D);
-    }
-
-    @Test
-    public void testimcmenor24mock2() throws Exception {
-        Calculo spy = (Calculo)PowerMockito.spy(this.calculo);
-        PowerMockito.when(Calculo.calculaimc(this.peso, this.altura));
+    public void testimcMenor24() throws Exception {
+        Calculo classRegister = (Calculo)Mockito.mock(Calculo.class);
+        Calculo var10000 = (Calculo)Mockito.verify(classRegister, Mockito.times(1));
         Calculo.calculaimc(this.peso, this.altura);
     }
 }
