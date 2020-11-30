@@ -147,7 +147,7 @@ public class Imctest {
     }
 
     @Test
-    public void testimcMenor24() throws Exception {
+    public void testimcMenor24Mock() throws Exception {
         Calculo classRegister =  Mockito.mock(Calculo.class);
         Mockito.verify(classRegister, Mockito.times(1)).calculaimc(peso,altura);
     }
